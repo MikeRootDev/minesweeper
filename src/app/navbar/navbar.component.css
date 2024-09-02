@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "SpaceShards";
+  src: url("/assets/SpaceShards-RpExo.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 {
+  font-family: "SpaceShards", sans-serif;
+  letter-spacing: 2px;
+  font-size: 55px;
+  margin-left: 35px;
+}

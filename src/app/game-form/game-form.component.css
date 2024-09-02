@@ -1,0 +1,24 @@
+input {
+  width: 80px;
+}
+button {
+  padding: 5px 50px 5px 50px;
+}
+#button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+label {
+  margin-right: 10px;
+}
+#button-container {
+  margin-top: 5px;
+}
+#form-container {
+  max-width: 820px;
+}
+#start-cell {
+  display: flex;
+  justify-content: right;
+}

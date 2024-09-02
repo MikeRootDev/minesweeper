@@ -1,0 +1,40 @@
+#gameContainer {
+  margin: auto;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.block {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+}
+.block-style-one {
+  background-color: #aad751;
+}
+.block-style-two {
+  background-color: #8fbd37;
+}
+.block:hover {
+  background-color: #c5e883;
+}
+.exploded {
+  background-color: red !important;
+}
+.empty-style-one {
+  background-color: #e5c29f !important;
+}
+.empty-style-two {
+  background-color: #b9a086 !important;
+}
+.number {
+  text-align: center;
+  font-size: 32px;
+  font-family: "SpaceShards";
+  color: blue;
+}
+.flag {
+  width: 40px;
+  height: 40px;
+  margin-top: 5px;
+  margin-left: 5px;
+}

@@ -1,0 +1,29 @@
+<div class="container" id="form-container">
+  <div class="row">
+    <div id="button-container">
+      <div class="col-md-3">
+        <label for="height">Height</label>
+        <input type="number" [(ngModel)]="height" name="height" value="12" />
+      </div>
+      <div class="col-md-3">
+        <label for="width">Width</label>
+        <input type="number" [(ngModel)]="width" name="width" value="20" />
+      </div>
+      <div class="col-md-3">
+        <label for="numOfMines"># of Mines</label>
+        <input
+          type="number"
+          [(ngModel)]="numOfMines"
+          name="numOfMines"
+          value="80"
+        />
+      </div>
+      <div class="col-md-6" id="start-cell">
+        <button id="start-game" (click)="startGame()">
+          Create Custom Game
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-gameboard></app-gameboard>
