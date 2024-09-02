@@ -1,3 +1,4 @@
+/* putting it here actually makes this font accessible to the rest of the app */
 @font-face {
   font-family: "SpaceShards";
   src: url("/assets/SpaceShards-RpExo.ttf") format("truetype");
@@ -6,8 +7,8 @@
 }
 
 h1 {
-  font-family: "SpaceShards", sans-serif;
+  font-family: "SpaceShards";
   letter-spacing: 2px;
-  font-size: 55px;
+  font-size: 40px;
   margin-left: 35px;
 }

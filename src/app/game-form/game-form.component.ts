@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { GameboardComponent } from '../gameboard/gameboard.component';
 import { FormsModule, NgModel } from '@angular/forms';
 import { NgIf } from '@angular/common';
@@ -11,13 +11,23 @@ import { NgIf } from '@angular/common';
   styleUrl: './game-form.component.css',
 })
 export class GameFormComponent {
+  //implements AfterViewInit {
   @ViewChild(GameboardComponent) gameBoardComponent!: GameboardComponent;
   hasGameStarted: boolean = false;
   height: number = 12;
   width: number = 20;
   numOfMines: number = 80;
 
-  startGame(): void {
+  ngAfterViewInit(): void {
+    this.startGame(false);
+  }
+
+  startGame(showWarning: boolean): void {
+    if (showWarning) {
+      const userConfirmed = confirm(
+        "Hey bruh, sure you want to create a new game?  You'll lose all progress on your current game.  Proceed anyway?"
+      );
+    }
     if (this.gameBoardComponent) {
       this.gameBoardComponent.createMinefield(
         this.height,

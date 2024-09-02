@@ -3,16 +3,17 @@ import { Game } from '../models/Game';
 import { BlockStatus } from '../models/enums/BlockStatus';
 import { GameStatus } from '../models/enums/GameStatus';
 import { AppConstants } from '../app-constants';
-import { NgStyle } from '@angular/common';
+import { NgIf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-gameboard',
   standalone: true,
-  imports: [NgStyle],
+  imports: [NgStyle, NgIf],
   templateUrl: './gameboard.component.html',
   styleUrl: './gameboard.component.css',
 })
 export class GameboardComponent {
+  public isGameActive: boolean = false;
   public game: Game = {
     GameId: 1,
     GameStatus: GameStatus.NotStarted,
