@@ -12,3 +12,6 @@ h1 {
   font-size: 40px;
   margin-left: 35px;
 }
+.navbar {
+  padding-bottom: 0px;
+}

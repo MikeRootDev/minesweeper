@@ -1,4 +1,11 @@
-import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  Renderer2,
+} from '@angular/core';
 import { Game } from '../models/Game';
 import { BlockStatus } from '../models/enums/BlockStatus';
 import { GameStatus } from '../models/enums/GameStatus';
@@ -13,6 +20,9 @@ import { NgIf, NgStyle } from '@angular/common';
   styleUrl: './gameboard.component.css',
 })
 export class GameboardComponent {
+  @Output() flagCountChange = new EventEmitter<number>();
+  @Output() gameStatusChange = new EventEmitter();
+
   public isGameActive: boolean = false;
   public game: Game = {
     GameId: 1,
@@ -108,22 +118,42 @@ export class GameboardComponent {
           let flagImage = this.renderer.createElement('img');
           this.renderer.addClass(flagImage, 'flag');
           this.renderer.setAttribute(flagImage, 'src', '/assets/flag.png');
+          this.renderer.setAttribute(
+            flagImage,
+            'id',
+            targetElement.id + 'flag'
+          );
           this.renderer.appendChild(event.target, flagImage);
           this.renderer.addClass(event.target, 'flagged');
           thisBlock!.BlockStatus = BlockStatus.Flagged;
+          this.updateFlagCount(1);
         }
       }
     } else if (targetElement.classList.contains('flag')) {
       this.renderer.removeClass(targetElement.parentElement, 'flagged');
       this.renderer.removeChild(targetElement.parentElement, targetElement);
       const coordinates: { x: number; y: number } = this.extractCoordinates(
-        targetElement!.parentElement!.id
+        targetElement.id.replace('flag', '')
       );
       let thisBlock = this.game.Minefield.find(
         (a) => a.X === coordinates.x && a.Y === coordinates.y
       );
       thisBlock!.BlockStatus = BlockStatus.Shielded;
+      this.updateFlagCount(-1);
     }
+  }
+
+  updateFlagCount(newCount: number): void {
+    this.flagCountChange.emit(newCount);
+  }
+
+  updateGameStatus(): void {
+    this.isGameActive = true;
+    this.updateGameIsActive();
+  }
+
+  updateGameIsActive(): void {
+    this.gameStatusChange.emit();
   }
 
   onBlockClick(element: HTMLElement): void {

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12" id="omni-container">
-      <div *ngIf="!isGameActive" class="shield" (click)="isGameActive = true">
+      <div *ngIf="!isGameActive" class="shield" (click)="updateGameStatus()">
         <div id="start-game-container">
           <button id="start-game-button">Start</button>
         </div>
