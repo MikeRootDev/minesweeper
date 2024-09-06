@@ -1,9 +1,17 @@
-<div class="container">
+<div class="container" [ngStyle]="{ width: game.Width * 50 + 25 + 'px' }">
   <div class="row">
     <div class="col-lg-12" id="omni-container">
-      <div *ngIf="!isGameActive" class="shield" (click)="updateGameStatus()">
-        <div id="start-game-container">
-          <button id="start-game-button">Start</button>
+      <div *ngIf="!isGameActive" class="shield">
+        <button id="start-game-button" (click)="updateGameStatus(true)">
+          Start
+        </button>
+      </div>
+      <div *ngIf="isGameOver" class="shield">
+        <div id="game-over-container">
+          <p>Ur Dead</p>
+          <button id="try-again" (click)="updateGameStatus(true)">
+            Try Again
+          </button>
         </div>
       </div>
       <div

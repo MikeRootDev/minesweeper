@@ -30,9 +30,12 @@ export class GameFormComponent {
     this.flagCount = this.flagCount + increment;
   }
 
-  onGameStatusChange(): void {
-    this.hasGameStarted = true;
-    this.startTimer();
+  onGameStatusChange(newGameStatus: boolean): void {
+    this.hasGameStarted = newGameStatus;
+    if (newGameStatus) this.startTimer();
+    else if (!newGameStatus && this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
   }
 
   startTimer(): void {

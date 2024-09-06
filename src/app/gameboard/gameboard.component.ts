@@ -24,15 +24,18 @@ export class GameboardComponent {
   @Output() gameStatusChange = new EventEmitter();
 
   public isGameActive: boolean = false;
+  public isGameOver: boolean = false;
   public game: Game = {
     GameId: 1,
     GameStatus: GameStatus.NotStarted,
     Height: 12, // default - override before anything else
     Width: 20, // default - override before anything else
     UserId: '1',
-    NumOfMines: 1,
+    NumOfMines: 0,
     Minefield: [],
   };
+
+  private flaggedBlocks: number = 0;
 
   constructor(private elRef: ElementRef, private renderer: Renderer2) {}
 
@@ -107,7 +110,10 @@ export class GameboardComponent {
     const targetElement = event.target as HTMLElement;
 
     if (targetElement.classList.contains('block')) {
-      if (!targetElement.classList.contains('flagged')) {
+      if (
+        !targetElement.classList.contains('flagged') &&
+        this.flaggedBlocks < this.game.NumOfMines
+      ) {
         const coordinates: { x: number; y: number } = this.extractCoordinates(
           targetElement.id
         );
@@ -143,17 +149,19 @@ export class GameboardComponent {
     }
   }
 
-  updateFlagCount(newCount: number): void {
-    this.flagCountChange.emit(newCount);
+  updateFlagCount(increment: number): void {
+    this.flagCountChange.emit(increment);
+    this.flaggedBlocks = this.flaggedBlocks + increment;
   }
 
-  updateGameStatus(): void {
-    this.isGameActive = true;
-    this.updateGameIsActive();
+  updateGameStatus(newGameStatus: boolean): void {
+    if (newGameStatus) this.isGameOver = false;
+    this.isGameActive = newGameStatus;
+    this.updateGameIsActive(newGameStatus);
   }
 
-  updateGameIsActive(): void {
-    this.gameStatusChange.emit();
+  updateGameIsActive(newGameStatus: boolean): void {
+    this.gameStatusChange.emit(newGameStatus);
   }
 
   onBlockClick(element: HTMLElement): void {
@@ -165,6 +173,8 @@ export class GameboardComponent {
     );
     if (potentialMine?.IsMine) {
       this.renderer.addClass(element, 'exploded');
+      this.updateGameIsActive(false);
+      this.isGameOver = true;
     } else {
       if (element.classList.contains('block-style-one')) {
         this.renderer.addClass(element, 'empty-style-one');
